@@ -1,0 +1,30 @@
+[DEFAULT]
+
+bantime = 15m
+findtime = 15m
+maxretry = 5
+ignoreip = 127.0.0.1/8
+banaction = iptables
+protocol=tcp
+enabled = false
+
+[http-get-dos]
+
+enabled = true
+filter = http-get-dos
+port = http,https
+findtime = 300
+bantime = 300
+logpath = %(apache_error_log)s
+action = iptables[name=HTTP, port=http, protocol=tcp]
+
+
+[sshd]
+
+enabled = true
+port = 50000
+maxretry = 3
+findtime = 300
+bantime = 300
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
